@@ -3,6 +3,9 @@
 bool Config::loadConfig(const char* source) {
 	file::buffer fileData;
 
+	// save path to the file
+	this->_source = source;
+
 	// read into the buffer if exists
 	if(!file::exists(source)) {
 		log::messageln("config file does not exist");
@@ -23,24 +26,42 @@ bool Config::loadConfig(const char* source) {
 	this->_playerName1 = jvalue["game"]["playerName1"].asString();
 	this->_playerName2 = jvalue["game"]["playerName2"].asString();
 
-	// get player keys
-	this->_playerKey1[0] = jvalue["player1"]["key_up"].asInt();
-	this->_playerKey1[1] = jvalue["player1"]["key_right"].asInt();
-	this->_playerKey1[2] = jvalue["player1"]["key_down"].asInt();
-	this->_playerKey1[3] = jvalue["player1"]["key_left"].asInt();
-	this->_playerKey1[4] = jvalue["player1"]["key_shot"].asInt();
+	// prepare memory to save keycodes
+	this->_playerKey1.resize(5);
+	this->_playerKey2.resize(5);
 
-	this->_playerKey2[0] = jvalue["player2"]["key_up"].asInt();
-	this->_playerKey2[1] = jvalue["player2"]["key_right"].asInt();
-	this->_playerKey2[2] = jvalue["player2"]["key_down"].asInt();
-	this->_playerKey2[3] = jvalue["player2"]["key_left"].asInt();
-	this->_playerKey2[4] = jvalue["player2"]["key_shot"].asInt();
+	// get player keys
+	char* keyName[] = { "key_up", "key_right", "key_down", "key_left", "key_shot" };
+	for (unsigned i = 0; i < 5; i++) {
+		this->_playerKey1[i] = jvalue["player1"][keyName[i]].asInt();
+		this->_playerKey2[i] = jvalue["player2"][keyName[i]].asInt();
+	}
 	
 	return true;
 };
 
 bool Config::saveConfig() {
-	return false;
+	Json::Value jvalue;
+	Json::FastWriter jwriter;
+
+	// if source is not defined return false
+	if (this->_source == "") return false;
+
+	// game settings
+	jvalue["game"]["playerName1"] = this->_playerName1;
+	jvalue["game"]["playerName2"] = this->_playerName2;
+
+	// game keys
+	char* keyName[] = { "key_up", "key_right", "key_down", "key_left", "key_shot" };
+	for (unsigned i = 0; i < 5; i++) {
+		jvalue["player1"][keyName[i]] = this->_playerKey1[i];
+		jvalue["player2"][keyName[i]] = this->_playerKey2[i];
+	}
+
+	std::string confFile = jwriter.write(jvalue);
+	file::write(this->_source, confFile.c_str(), confFile.size());
+
+	return true;
 };
 
 std::string Config::getPlayerName(int id) {
@@ -48,9 +69,41 @@ std::string Config::getPlayerName(int id) {
 	return _playerName2;
 }
 
-int* Config::getPlayerKeys(int id) {
+std::vector<int> Config::getPlayerKeys(int id) {
 	if (id == 0) return _playerKey1;
 	return _playerKey2;
+}
+
+void Config::setPlayerName(int id, const std::string &playerName){
+	if (id == 0) {
+		_playerName1 = playerName;
+		return;
+	}
+
+	_playerName2 = playerName;
+};
+
+/**
+	Set new player keys to game config
+	@param: id			int          user id
+			playerKeys  vector<int>  new player keys
+
+	@note: it's very importat to pass keys in correct ordering
+		   keyUp    = playerKeys[0]
+		   keyRight = playerKeys[1]
+		   keyDown  = playerKeys[2]
+		   keyLeft  = playerKeys[3]
+		   keyShot  = playerKeys[4]
+
+	@return: void
+*/
+void Config::setPlayerKeys(int id, const std::vector<int> &playerKeys){
+	if (id == 0) {
+		_playerKey1 = playerKeys;
+		return;
+	}
+
+	_playerKey2 = playerKeys;
 };
 
 std::string Config::toString(){

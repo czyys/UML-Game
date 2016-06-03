@@ -7,10 +7,12 @@ using namespace oxygine;
 
 class Config {
 private:
-	std::string _playerName1;
-	std::string _playerName2;
-	int         _playerKey1[5];
-	int			_playerKey2[5];
+	std::string      _playerName1;
+	std::string      _playerName2;
+	std::vector<int> _playerKey1;
+	std::vector<int> _playerKey2;
+
+	const char* _source;
 
 	Config() {};
 
@@ -26,6 +28,8 @@ public:
 	bool saveConfig();
 	bool loadConfig(const char* source);
 	std::string getPlayerName(int id);
-	int* getPlayerKeys(int id);
+	std::vector<int> getPlayerKeys(int id);
+	void setPlayerName(int id, const std::string &playerName);
+	void setPlayerKeys(int id, const std::vector<int> &playerKeys);
 	std::string toString();
 };

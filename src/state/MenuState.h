@@ -20,22 +20,30 @@ private:
 	spInputField _currentTF;
 	spInputText  _input;
 
-	int _nextState;
+	short _nextState;
+	short _task;
 
-	void _initSettings(const std::string& playerName1, const std::string &playerName2, int* pKey1, int* pKey2);
+	std::vector<int> _playerKeys1;
+	std::vector<int> _playerKeys2;
+
+	void _initSettings(const std::string &pName1, const std::string &pName2, const std::vector<int> &pKey1, const std::vector<int> &pKey2);
+	void _backSettingsToDef();
+	void _saveSettingsToConfig();
 	void _initMenu();
 	void onClickTF(Event* ev);
 	void onEvent(Event* ev);
 	void onComplete(Event* ev);
 	void onTweenDone(Event* ev);
-	void onSettingsAction(Event* ev);
+	void onKeyEvent(Event* ev);
 	void _initEngineEffects();
 	void _initFireBottomEffects();
 	void _initSmokeBottomEffects();
 	void _initSparksTopEffects();
 public:
 	static const int MAIN_MENU     = 0;
-	static const int SETTINGS_MENU = 1;
+	static const int MENU_SETTINGS = 1;
+	static const int TASK_CANCEL   = 10;
+	static const int TASK_SAVE     = 11;
 
 	MenuState();
 	static spMenuState instance;

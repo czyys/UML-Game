@@ -11,6 +11,7 @@ class FightState : public State{
 private:
 	spFightStage _fightContainer;
 
+	void _show();
 	void onEvent(Event* event);
 
 public:
