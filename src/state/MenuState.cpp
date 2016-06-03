@@ -45,14 +45,15 @@ MenuState::MenuState(){
 	this->_initFireBottomEffects();
 	this->_initSmokeBottomEffects();
 	this->_initSparksTopEffects();
+
+	this->_initMenu();
+
 	this->_initSettings(
-		Config::getInstance().getPlayerName(0), 
+		Config::getInstance().getPlayerName(0),
 		Config::getInstance().getPlayerName(1),
 		Config::getInstance().getPlayerKeys(0),
 		Config::getInstance().getPlayerKeys(1)
-	);
-
-	this->_initMenu();
+		);
 	
 	// add events to menu
 	_mainMenu->setName("Main Menu");
@@ -271,6 +272,7 @@ void MenuState::onClickTF(Event* ev) {
 		return;
 	}
 	else if (cTarget == "cancelBTN") {
+
 		_nextState = MenuState::MAIN_MENU;
 
 		_playerSettings->addTween(Actor::TweenAlpha(0), 200);

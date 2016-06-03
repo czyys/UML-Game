@@ -16,12 +16,20 @@ protected:
 	spAircraftFighter _af1;
 	spAircraftFighter _af2;
 
+	spTextField createText(const std::string& txt, const std::string& color);
+
 	spSprite _bg;
+	spSprite _guiPLayerRed;
+	spSprite _guiPLayerGreen;
+	spSprite _bgClouds;
+	spTween _fightStageTween;
 
 	std::list<spUnit> _units;
 
 	void doUpdate(const UpdateState& us);
 	void _showMenu();
+	void _initGui();
+	void _initBgClouds();
 
 public:
 	FightStage();
