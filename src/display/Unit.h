@@ -25,4 +25,5 @@ public:
     bool isDead() const {return _dead;}
 	float getHeight();
 	float getWidth();
+	spActor getView();
 };

@@ -1,6 +1,8 @@
 #include "oxygine-framework.h"
 #include "AircraftFighter.h"
 #include <list>
+#include "Unit.h"
+#include "Pause.h"
 
 using namespace oxygine;
 
@@ -12,9 +14,14 @@ protected:
 	friend class Rocket;
 	friend class Unit;
 	friend class Pickup;
+	bool		_isPaused = false;
+	int			_pauseKey = SDL_SCANCODE_P;
+	timeMS      _lastPause;
 
 	spAircraftFighter _af1;
 	spAircraftFighter _af2;
+
+	spPause pause;
 
 	spTextField createText(const std::string& txt, const std::string& color);
 

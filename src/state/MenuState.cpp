@@ -31,6 +31,7 @@ MenuState::MenuState(){
 		arg_attachTo = _view);
 	_mainMenu->setX(_view->getWidth() / 2);
 	_mainMenu->setY((_view->getHeight() / 2) + 80);
+	_mainMenu->setPriority(2);
 
 	//create settings block
 	_playerSettings = initActor(new Sprite,
@@ -39,7 +40,7 @@ MenuState::MenuState(){
 		arg_attachTo = _view);
 	_playerSettings->setX(_view->getWidth() / 2);
 	_playerSettings->setY((_view->getHeight() / 2) + 60);
-
+	_playerSettings->setPriority(3);
 	
 	this->_initEngineEffects();
 	this->_initFireBottomEffects();
@@ -198,6 +199,7 @@ void MenuState::_initFireBottomEffects() {
 	_fireBottomAnimation->attachTo(_view);
 	_fireBottomAnimation->setAnchor(0.5f, 0.5f);
 	_fireBottomAnimation->setResAnim(GameResource::ui.getResAnim("fire_bottom_anim"));
+	_fireBottomAnimation->setPriority(1);
 
 	//fire animation initial position
 	_fireBottomAnimation->setX(_view->getWidth() - _fireBottomAnimation->getWidth() / 3);
