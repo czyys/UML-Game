@@ -42,3 +42,7 @@ float Unit::getHeight() {
 float Unit::getWidth() {
 	return this->_view->getWidth();
 }
+
+spActor Unit::getView() {
+	return this->_view;
+}

@@ -42,6 +42,9 @@
 		<image file="rocket.png" />
 		<image file="explosion.png" cols="12"/>
 		<image file="shield.png"/>
+		<image file="fight-gui.png" />
+		<image file="pause.png" trim="false"/>
+		<image file="fight-bg-clouds.png" />
 	</atlas>
 	
 	<set path = "../images/pups" />
