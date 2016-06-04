@@ -45,26 +45,33 @@ void FightStage::init() {
 	this->_af1 = new AircraftFighter();
 	this->_af1->init(Vector2(0,0), 180, this);
 	this->_af1->setKeys(Config::getInstance().getPlayerKeys(0));
+	this->_af1->setPosition(Vector2(
+		(this->getWidth() / 2 - this->_af1->getWidth() / 2) - 125, 
+		this->getHeight() - this->_af1->getHeight()
+	));
 	
-	// update aircraft position
-	this->_af1->setPosition(Vector2(this->getWidth() / 2 - this->_af1->getWidth() / 2, this->getHeight() - this->_af1->getHeight()));
-	
+	this->_af2 = new AircraftFighter("Green AF", "green");
+	this->_af2->init(Vector2(0, 0), 0, this);
+	this->_af2->setKeys(Config::getInstance().getPlayerKeys(1));
+	this->_af2->setPosition(Vector2(
+		(this->getWidth() / 2 - this->_af2->getWidth() / 2) + 125, 
+		50
+	));
+
 	//GUI initialization
 	_initGui();
-
-	this->_af1->setKeys(Config::getInstance().getPlayerKeys(0));
 
 	spTextField playerNameRed = createText("RED PLAYER", "red");
 	playerNameRed->setText(Config::getInstance().getPlayerName(0));
 	playerNameRed->attachTo(this);
 	playerNameRed->setX(this->getWidth()-170);
-	playerNameRed->setY(35);
+	playerNameRed->setY(this->getHeight() - 25);
 
 	spTextField playerNameGreen = createText("GREEN PLAYER", "green");
 	playerNameGreen->setText(Config::getInstance().getPlayerName(1));
 	playerNameGreen->attachTo(this);
 	playerNameGreen->setX(this->getWidth() - 170);
-	playerNameGreen->setY(this->getHeight() - 25);
+	playerNameGreen->setY(35);
 
 	// create pause screen
 	pause = new Pause();

@@ -8,6 +8,7 @@ class MenuState : public State{
 private:
 	spSprite     _mainMenu;
 	spSprite     _playerSettings;
+	spSprite     _menuAuthors;
 
 	//animation special effects
 	spSprite     _enginesAnimation;
@@ -30,20 +31,23 @@ private:
 	void _backSettingsToDef();
 	void _saveSettingsToConfig();
 	void _initMenu();
+	void _initAuthors();
 	void onClickTF(Event* ev);
 	void onEvent(Event* ev);
 	void onComplete(Event* ev);
 	void onTweenDone(Event* ev);
 	void onKeyEvent(Event* ev);
+	void onCloseEvent(Event* ev);
 	void _initEngineEffects();
 	void _initFireBottomEffects();
 	void _initSmokeBottomEffects();
 	void _initSparksTopEffects();
 public:
-	static const int MAIN_MENU     = 0;
-	static const int MENU_SETTINGS = 1;
-	static const int TASK_CANCEL   = 10;
-	static const int TASK_SAVE     = 11;
+	static const short MENU_MAIN     = 0;
+	static const short MENU_SETTINGS = 1;
+	static const short MENU_AUTHORS  = 2;
+	static const short TASK_CANCEL   = 10;
+	static const short TASK_SAVE     = 11;
 
 	MenuState();
 	static spMenuState instance;

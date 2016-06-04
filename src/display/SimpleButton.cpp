@@ -24,7 +24,7 @@ void SimpleButton::setText(const char* text){
 
 void SimpleButton::setText(const char* text, const int &position){
 	_textField->setText(text);
-	_textField->setY(this->getHeight() / 2.0f - _textField->getTextRect().getHeight() / 2.0f);
+	_textField->setY((this->getHeight() / 2.0f - _textField->getTextRect().getHeight() / 2.0f) - 2);
 	
 	switch (position) {
 	case SimpleButton::BUTTON_LEFT:

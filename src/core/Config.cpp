@@ -85,8 +85,8 @@ void Config::setPlayerName(int id, const std::string &playerName){
 
 /**
 	Set new player keys to game config
-	@param: id			int          user id
-			playerKeys  vector<int>  new player keys
+	@param: id          int          user id
+	        playerKeys  vector<int>  new player keys
 
 	@note: it's very importat to pass keys in correct ordering
 		   keyUp    = playerKeys[0]

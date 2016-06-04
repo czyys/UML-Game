@@ -5,6 +5,10 @@
 #include "../display/SimpleButton.h"
 #include "../core/Config.h"
 #include "FightState.h"
+#ifdef _WIN32
+	#pragma comment(lib, "shell32.lib")
+	#include <windows.h>
+#endif
 
 using namespace std;
 
@@ -32,12 +36,22 @@ MenuState::MenuState(){
 	_mainMenu->setX(_view->getWidth() / 2);
 	_mainMenu->setY((_view->getHeight() / 2) + 80);
 
+	// create authors block
+	_menuAuthors = initActor(new Sprite,
+		arg_resAnim = GameResource::ui.getResAnim("menu-bg"),
+		arg_anchor = Vector2(0.5f, 0.5f),
+		arg_attachTo = _view,
+		arg_alpha = 0);
+	_menuAuthors->setX(_view->getWidth() / 2);
+	_menuAuthors->setY((_view->getHeight() / 2) + 60);
+
 	//create settings block
 	_playerSettings = initActor(new Sprite,
 		arg_resAnim = GameResource::ui.getResAnim("set_bg"),
 		arg_anchor = Vector2(0.5f, 0.5f),
-		arg_name = "settings",
-		arg_attachTo = _view);
+		arg_attachTo = _view,
+		arg_alpha = 0
+	);
 	_playerSettings->setX(_view->getWidth() / 2);
 	_playerSettings->setY((_view->getHeight() / 2) + 60);
 	
@@ -55,6 +69,8 @@ MenuState::MenuState(){
 		Config::getInstance().getPlayerKeys(1)
 	);
 	
+	this->_initAuthors();
+
 	_mainMenu->setName("Main Menu");
 
 	// add events to menu
@@ -62,12 +78,7 @@ MenuState::MenuState(){
 }
 
 void MenuState::_initMenu() {
-	spActor menuClip = new Actor();
-	menuClip->setSize(_mainMenu->getWidth(), _mainMenu->getHeight());
-	menuClip->attachTo(_mainMenu);
-	menuClip->setName("menuClip");
-
-	float buttonX        = menuClip->getWidth() / 2;
+	float buttonX        = _mainMenu->getWidth() / 2;
 	float buttonY        = 74;
 	char* menuBtns[]     = {"PLAY", "SETTINGS", "AUTHORS", "WE ON GITHUB", "EXIT THE GAME"};
 	char* menuBtnsName[] = {"play", "settings", "authors", "github", "exit"};
@@ -79,11 +90,49 @@ void MenuState::_initMenu() {
 		button->setName(menuBtnsName[i]);
 		button->setAnchor(Vector2(0.5f, 0.5f));
 		button->setText(menuBtns[i]);
-		button->attachTo(menuClip);
+		button->attachTo(_mainMenu);
 		button->setPosition(buttonX, buttonY);
 
 		buttonY += button->getHeight() + 13;
 	}
+}
+
+void MenuState::_initAuthors() {
+	spTextField header = new TextField();
+	spTextField tf     = new TextField();
+	spTextField copy   = new TextField();
+	spSimpleButton btn = new SimpleButton();
+	Color textColor(0, 255, 156);
+	
+	header->setText("AUTHORS");
+	header->setPosition(166.5, 14);
+	header->attachTo(_menuAuthors);
+	header->setFontSize2Scale(12);
+	header->setColor(textColor);
+
+	tf->setMultiline(true);
+	tf->setText("Kamil Armatys\nWiktor Grybos\nWojciech Juszczak\nCezary Slawecki\nVlad Udovychenko");
+	tf->setFontSize2Scale(14);
+	tf->setPosition(20, 50);
+	tf->setColor(textColor);
+	tf->setLinesOffset(5);
+	tf->attachTo(_menuAuthors);
+
+	copy->setText("(C) 2016");
+	copy->setWidth(_menuAuthors->getWidth());
+	copy->setY(_menuAuthors->getHeight() - 80);
+	copy->setColor(textColor);
+	copy->setHAlign(TextStyle::HALIGN_CENTER);
+	copy->attachTo(_menuAuthors);
+
+	btn->setName("close-btn");
+	btn->setAnchor(Vector2(0.5f, 0.5f));
+	btn->setText("CLOSE");
+	btn->setPosition(_menuAuthors->getWidth() / 2, _menuAuthors->getHeight() - 35);
+	btn->attachTo(_menuAuthors);
+	
+	//add events
+	btn->addEventListener(TouchEvent::CLICK, CLOSURE(this, &MenuState::onCloseEvent));
 }
 
 /**
@@ -204,9 +253,6 @@ void MenuState::_initSettings(const std::string& playerName1, const std::string 
 	
 	// add events
 	_playerSettings->addEventListener(TouchEvent::CLICK, CLOSURE(this, &MenuState::onClickTF));
-	
-	// hide menu
-	_playerSettings->setAlpha(0);
 };
 
 void MenuState::_backSettingsToDef() {
@@ -324,18 +370,25 @@ void MenuState::onEvent(Event* ev) {
 		
 		//clicked to play button change scene
 		changeState(FightState::instance);
+		return;
+	}else if(target == "github"){
+		#ifdef _WIN32
+		ShellExecute(NULL, L"open", L"https://github.com/czyys/UML-Game", NULL, NULL, NULL);
+		#endif 
+	return;
+
 	}
 	else if (target == "settings") {
 		_nextState = MenuState::MENU_SETTINGS;
-		
-		_mainMenu->addTween(Actor::TweenAlpha(0), 200);
-		_mainMenuTween = _mainMenu->addTween(Actor::TweenY(_mainMenu->getY() - 20), 400);
-		
-		_mainMenuTween->setDoneCallback(CLOSURE(this, &MenuState::onTweenDone));
 	}
-	else if (target == "auth-normal") {
-		
+	else if (target == "authors") {
+		_nextState = MenuState::MENU_AUTHORS;
 	}
+
+	_mainMenu->addTween(Actor::TweenAlpha(0), 200);
+	_mainMenuTween = _mainMenu->addTween(Actor::TweenY(_mainMenu->getY() - 20), 400);
+
+	_mainMenuTween->setDoneCallback(CLOSURE(this, &MenuState::onTweenDone));
 }
 
 void MenuState::onClickTF(Event* ev) {
@@ -354,7 +407,7 @@ void MenuState::onClickTF(Event* ev) {
 
 	// save btn clicked
 	if (target == "saveBTN") {
-		_nextState = MenuState::MAIN_MENU;
+		_nextState = MenuState::MENU_MAIN;
 		_task = MenuState::TASK_SAVE;
 
 		_playerSettings->addTween(Actor::TweenAlpha(0), 200);
@@ -366,7 +419,7 @@ void MenuState::onClickTF(Event* ev) {
 
 	// cancel btn clicked
 	if (target == "cancelBTN") {
-		_nextState = MenuState::MAIN_MENU;
+		_nextState = MenuState::MENU_MAIN;
 		_task      = MenuState::TASK_CANCEL;
 
 		_playerSettings->addTween(Actor::TweenAlpha(0), 200);
@@ -423,33 +476,47 @@ void MenuState::onComplete(Event* ev) {
 	InputText::stopAnyInput();
 };
 
+void MenuState::onCloseEvent(Event* ev) {
+	_nextState = MenuState::MENU_MAIN;
+
+	_menuAuthors->addTween(Actor::TweenAlpha(0), 200);
+	_mainMenuTween = _menuAuthors->addTween(Actor::TweenY(_menuAuthors->getY() - 20), 400);
+	_mainMenuTween->setDoneCallback(CLOSURE(this, &MenuState::onTweenDone));
+}
+
 void MenuState::onTweenDone(Event* ev) {
-	log::message("tween done");
 	float posY = 0;
+	spSprite state;
 
 	switch (_nextState) {
 	case MenuState::MENU_SETTINGS:
-		posY = _playerSettings->getY() + 20;
-		_playerSettings->addTween(Actor::TweenAlpha(255), 200);
-		_playerSettings->addTween(Actor::TweenY(posY), 400);
-		
+		state = _playerSettings;
 		break;
-	case MenuState::MAIN_MENU:
-		posY = _mainMenu->getY() + 20;
-		_mainMenu->addTween(Actor::TweenAlpha(255), 200);
-		_mainMenuTween = _mainMenu->addTween(Actor::TweenY(posY), 400);
+	case MenuState::MENU_AUTHORS:
+		state = _menuAuthors;
+		break;
+	case MenuState::MENU_MAIN:
+		state = _mainMenu;
 		break;
 	}
+
+	// animation
+	posY = state->getY() + 20;
+	state->addTween(Actor::TweenAlpha(255), 200);
+	state->addTween(Actor::TweenY(posY), 400);
 
 	switch (_task) {
 	case MenuState::TASK_SAVE:
 		_saveSettingsToConfig();
 		break;
+	// back to default settings(discard changes)
 	case MenuState::TASK_CANCEL:
-		// back to default settings(discard changes)
 		_backSettingsToDef();
 		break;
 	default:
 		break;
 	}
+	
+	//reset task
+	_task = 0;
 }

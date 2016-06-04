@@ -6,7 +6,6 @@ FightState::FightState() {
 	_fightContainer = new FightStage();
 	_fightContainer->attachTo(this->_view);
 	_fightContainer->setClock(new Clock());
-
 }
 
 void FightState::_show() {
