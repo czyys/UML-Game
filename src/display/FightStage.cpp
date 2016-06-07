@@ -3,7 +3,6 @@
 #include "../resource/GameResource.h"
 #include "Pickup.h"
 #include "../state/MenuState.h"
-#include "Pause.h"
 
 
 FightStage::FightStage() {
@@ -72,10 +71,6 @@ void FightStage::init() {
 	playerNameGreen->attachTo(this);
 	playerNameGreen->setX(this->getWidth() - 170);
 	playerNameGreen->setY(35);
-
-	// create pause screen
-	pause = new Pause();
-	pause->init(Point(0, 0), 0, this);
 }
 
 
@@ -140,31 +135,18 @@ void FightStage::_initBgClouds() {
 
 void FightStage::doUpdate(const UpdateState& us) {
 	// update display objects
-	const Uint8* keyDown = SDL_GetKeyboardState(0);
 
-	if (keyDown[_pauseKey])
-		if (_lastPause + 150 < us.time) {
-			_lastPause = us.time;
-			_isPaused = !_isPaused;
+	for (std::list<spUnit>::iterator i = _units.begin(); i != _units.end(); ) {
+		spUnit child = *i;
+		child->update(us);
+
+		if (child->isDead()) {
+			//it is dead. Time to remove it from list
+			i = _units.erase(i);
 		}
-
-	if (_isPaused == false) {
-		pause->getView()->setVisible(false);
-		for (std::list<spUnit>::iterator i = _units.begin(); i != _units.end(); ) {
-			spUnit child = *i;
-			child->update(us);
-
-			if (child->isDead()) {
-				//it is dead. Time to remove it from list
-				i = _units.erase(i);
-			}
-			else {
-				++i;
-			}
+		else {
+			++i;
 		}
-	}
-	else {
-		pause->getView()->setVisible(true);
 	}
 }
 

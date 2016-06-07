@@ -367,11 +367,16 @@ void MenuState::onEvent(Event* ev) {
 	}
 	else if (target == "play") {
 		log::messageln("mode changed");
+
+		// create new gaming state
+		FightState::instance = new FightState();
 		
 		//clicked to play button change scene
 		changeState(FightState::instance);
+
 		return;
-	}else if(target == "github"){
+	}
+	else if(target == "github"){
 		#ifdef _WIN32
 		ShellExecute(NULL, L"open", L"https://github.com/czyys/UML-Game", NULL, NULL, NULL);
 		#endif 
