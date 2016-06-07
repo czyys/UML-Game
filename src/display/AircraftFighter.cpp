@@ -27,6 +27,7 @@ void AircraftFighter::_init() {
 	this->_ship = new Sprite();
 	this->_ship->setResAnim(GameResource::ui.getResAnim(shipObj.append(this->_color)));
 	this->_ship->setAnchor(Vector2(0.5f, 0.5f));
+	this->_ship->setPriority(1000);
 	this->_ship->attachTo(this->_view);
 
 	this->_view->setWidth(this->_ship->getWidth());
@@ -160,6 +161,19 @@ int AircraftFighter::hit(int damage){
 void AircraftFighter::pickupPup(int id){
 
 	switch (id) {
+		case 0: //Mina
+		{
+			_lastPickUp[0] = _currentTime;
+			_hp -= 3;
+		
+			break;
+		}
+		case 1: //Skrzynka z narzedziami
+		{
+			_lastPickUp[1] = _currentTime;
+			_hp += 3;
+			break;
+		}
 		case 2: //Spowolniajaca chmurka
 		{
 			_lastPickUp[2] = _currentTime;

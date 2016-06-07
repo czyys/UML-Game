@@ -23,18 +23,14 @@ void FightStage::init() {
 	this->_bg->attachTo(this);
 
 	_initBgClouds();
-
-	spPickup pickup_pup0 = new Pickup("pup", 0, 5, 20);
+	//type, id, quantity, diameter
+	spPickup pickup_pup0 = new Pickup("pup", 0, 5, 20, true);
 	pickup_pup0->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	spPickup pickup_pup1 = new Pickup("pup", 1, 5, 20);
+	spPickup pickup_pup1 = new Pickup("pup", 1, 5, 20, true);
 	pickup_pup1->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	spPickup pickup_pup2 = new Pickup("pup", 2, -1, 76);
-	pickup_pup2->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	spPickup pickup_pup3 = new Pickup("pup", 3, -1, 76);
-	pickup_pup3->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	spPickup pickup_wpn0 = new Pickup("wpn", 0, 5, 20);
+	spPickup pickup_wpn0 = new Pickup("wpn", 0, 5, 20, true);
 	pickup_wpn0->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	spPickup pickup_wpn1 = new Pickup("wpn", 1, 5, 20);
+	spPickup pickup_wpn1 = new Pickup("wpn", 1, 5, 20, true);
 	pickup_wpn1->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
 
 	spTextField textDetails = new TextField();
@@ -72,6 +68,15 @@ void FightStage::init() {
 	playerNameGreen->attachTo(this);
 	playerNameGreen->setX(this->getWidth() - 170);
 	playerNameGreen->setY(35);
+
+	//clouds after aircrafts
+	spPickup pickup_pup2 = new Pickup("pup", 2, -1, 76, false);
+//	pickup_pup2->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
+	pickup_pup2->init(Vector2(45+ getWidth()/2,150), 0, this);
+	spPickup pickup_pup3 = new Pickup("pup", 3, -1, 76, false);
+	//pickup_pup3->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
+	pickup_pup3->init(Vector2( getWidth() / 2, 120 +getHeight() / 2), 0, this);
+	
 
 	// create pause screen
 	pause = new Pause();

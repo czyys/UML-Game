@@ -4,7 +4,7 @@
 #include "FightStage.h"
 #include "Unit.h"
 
-Pickup::Pickup(std::string type, int id, int quantity, double diameter):_type(type),_id(id),_quantity(quantity),_diameter(diameter){
+Pickup::Pickup(std::string type, int id, int quantity, double diameter, bool rotate):_type(type),_id(id),_quantity(quantity),_diameter(diameter),_rotate(rotate){
 }
 
 
@@ -12,22 +12,25 @@ Pickup::~Pickup(){
 }
 
 
-void Pickup::_init(){
+void Pickup::_init() {
 	spSprite sprite = new Sprite;
-	std::string resName = _type+ "-" + std::to_string(_id);
+	std::string resName = _type + "-" + std::to_string(_id);
 	sprite->setResAnim(GameResource::ui.getResAnim(resName));
+	sprite->setPriority(100);
 	sprite->attachTo(_view);
 	sprite->setAnchor(Vector2(0.5f, 0.5f));
 
-	//it random scale and rotation
+	//set  random rotation 
 	sprite->setRotation(scalar::randFloat(0, MATH_PI * 2));
-	//sprite->setScale(scalar::randFloat(0.15f, 0.22f));
 
-	//it is rotating by tween with random speed
+
+	//rotate?
+	if (_rotate) {
 	float dest = MATH_PI * 2;
 	if (rand() % 2 == 0) dest *= -1;
 	dest += sprite->getRotation();
 	sprite->addTween(Sprite::TweenRotation(dest), rand() % 12000 + 10000, -1);
+	}
 	_pos = _view->getPosition();
 }
 
