@@ -50,6 +50,7 @@ MenuState::MenuState(){
 		arg_resAnim = GameResource::ui.getResAnim("set_bg"),
 		arg_anchor = Vector2(0.5f, 0.5f),
 		arg_attachTo = _view,
+		arg_name = "settings",
 		arg_alpha = 0
 	);
 	_playerSettings->setX(_view->getWidth() / 2);
@@ -443,7 +444,13 @@ void MenuState::onKeyEvent(Event* ev) {
 	KeyEvent* ke = safeCast<KeyEvent*>(ev);
 
 	if (ke->type = KeyEvent::KEY_DOWN) {
+		// remove listeners
 		getStage()->removeEventListener(KeyEvent::KEY_DOWN, CLOSURE(this, &MenuState::onKeyEvent));
+
+		// check if enter key has been pressed
+		if (ke->data->keysym.sym == SDLK_RETURN) return;
+
+		// get pressed key
 		const char* keyName = SDL_GetScancodeName(ke->data->keysym.scancode);
 		_currentTF->getTextField()->setText(keyName);
 		_currentTF->focus(false);

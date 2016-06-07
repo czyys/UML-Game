@@ -59,6 +59,7 @@ void InputField::addLabel(const std::string &text, const int &size) {
 	_labelField->setName("label");
 	_labelField->setFontSize2Scale(size);
 	_labelField->setPosition(15, -17);
+	_labelField->setTouchEnabled(false);
 	_labelField->attachTo(this);
 	
 	_isLabel = true;
