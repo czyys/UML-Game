@@ -35,4 +35,11 @@ public:
 	void pickupPup(int id);
 	void pickupWpn(int id);
 	void die();
+
+	//Rocet need to know what to hit
+	std::string getAircraftName()
+	{
+		return _name;
+	}
+	
 };

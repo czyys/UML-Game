@@ -116,6 +116,9 @@ void AircraftFighter::_update(const UpdateState& us) {
 
 		}
 	}
+
+		if (_hp <= 0)
+			this->die();
 	//add debug info
 	DebugActor::instance->addDebugString("%s: hp=%d speed=%1.0f \n P(%05.1f,%05.1f) r=%05.1f \n", _name, _hp, ((this->_speed + _speedMultiplierPup)* this->_speedMultiplier), _view->getPosition().x, _view->getPosition().x, _view->getRotationDegrees());
 }
@@ -146,6 +149,11 @@ void AircraftFighter::setKeys(const std::vector<int> &keyMaps) {
 }
 
 int AircraftFighter::hit(int damage){
+	
+	if (_hp > 0)
+		_hp -= damage;
+	
+
 	return 0;
 }
 
@@ -171,4 +179,25 @@ void AircraftFighter::pickupWpn(int id){
 }
 
 void AircraftFighter::die(){
+
+	//set this flag to true and it this rocket would be removed from units list in Game::doUpdate
+	_dead = true;
+
+	//create explode sprite
+	spSprite anim = new Sprite;
+	
+	this->_ship->setAnchor(Vector2(0.5f, 0.5f));
+	anim->attachTo(_view);
+	anim->setBlendMode(blend_add);
+	anim->setPosition(_view->getPosition());
+	anim->setAnchor(Vector2(0.5f, 0.5f));
+
+	//run tween with explosion animation
+	spTween tween = anim->addTween(Sprite::TweenAnim(GameResource::ui.getResAnim("explosion")), 200);
+	//auto detach sprite when tween is done
+	tween->setDetachActor(true);
+
+	//hide rocket and then detach it
+	tween = _view->addTween(Actor::TweenAlpha(0), 500);
+	tween->setDetachActor(true);
 }
