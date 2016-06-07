@@ -18,7 +18,7 @@ void AircraftFighter::_init() {
 	std::string shipObj = "ship-";
 	
 	// set starting life points
-	this->_hp = 5;
+	this->_hp = 10;
 
 	// set initial speed 
 	this->_speed = 6.0f;
@@ -52,7 +52,7 @@ void AircraftFighter::_setDefaultKeys() {
 void AircraftFighter::_update(const UpdateState& us) {
 	Vector2 dir;
 	Vector2 pos = this->getPosition();
-
+	
 	float _speedMultiplierPup = 0.0f;
 	
 	//get Pup multiplier
@@ -92,12 +92,16 @@ void AircraftFighter::_update(const UpdateState& us) {
 			spRocket rocket = new Rocket(dir, this->_name);
 			rocket->init(_view->getPosition(), 0, _game);
 		}
+		
 	}
 	
 	
 	if (!_bounds.pointIn(pos)) {
 		log::messageln("aircraft out of bounds");
 		angle += (float)((180 * M_PI) / 180);
+		
+		Vector2 poke((pos.x<_bounds.size.x)?2:-2, (pos.y<_bounds.size.y) ? 2 : -2);
+		pos += poke;
 	}
 
 	this->_view->setPosition(pos);
@@ -112,6 +116,8 @@ void AircraftFighter::_update(const UpdateState& us) {
 
 		}
 	}
+	//add debug info
+	DebugActor::instance->addDebugString("%s: hp=%d speed=%1.0f \n P(%05.1f,%05.1f) r=%05.1f \n", _name, _hp, ((this->_speed + _speedMultiplierPup)* this->_speedMultiplier), _view->getPosition().x, _view->getPosition().x, _view->getRotationDegrees());
 }
 
 /**
@@ -144,17 +150,18 @@ int AircraftFighter::hit(int damage){
 }
 
 void AircraftFighter::pickupPup(int id){
+
 	switch (id) {
 		case 2: //Spowolniajaca chmurka
 		{
 			_lastPickUp[2] = _currentTime;
-			_speedPickUpMultiplier[0] = -5;
+			_speedPickUpMultiplier[0] = -3;
 			break;
 		}
 		case 3: //Przyspieszajaca chmurka
 		{
 			_lastPickUp[3] = _currentTime;
-			_speedPickUpMultiplier[1] = 5;
+			_speedPickUpMultiplier[1] = 3;
 			break;
 		}
 	}
