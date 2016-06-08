@@ -102,5 +102,5 @@ void FightState::closeGame() {
 
 	//remove events
 	getStage()->removeEventListener(KeyEvent::KEY_DOWN, CLOSURE(this, &FightState::onKeyEvent));
-	_pauseMenu->addEventListener(TouchEvent::CLICK, CLOSURE(this, &FightState::onEvent));
+	_pauseMenu->removeEventListener(TouchEvent::CLICK, CLOSURE(this, &FightState::onEvent));
 }
