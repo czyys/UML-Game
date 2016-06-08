@@ -39,49 +39,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\core\Game.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\resource\GameResource.h">
-      <Filter>Header Files\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\display\AircraftFighter.h">
-      <Filter>Header Files\display</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\state\FightState.h">
-      <Filter>Header Files\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\state\MenuState.h">
-      <Filter>Header Files\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\state\State.h">
-      <Filter>Header Files\state</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\display\FightStage.h">
-      <Filter>Header Files\display</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\display\Rocket.h">
-      <Filter>Header Files\display</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\display\Unit.h">
-      <Filter>Header Files\display</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\display\Obstacle.h">
-      <Filter>Header Files\display</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\display\Pickup.h">
-      <Filter>Header Files\display</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\core\Game.cpp">
-      <Filter>Source Files\core</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resource\GameResource.cpp">
-      <Filter>Source Files\resource</Filter>
     </ClCompile>
     <ClCompile Include="..\src\state\FightState.cpp">
       <Filter>Source Files\state</Filter>
@@ -89,26 +48,97 @@
     <ClCompile Include="..\src\state\MenuState.cpp">
       <Filter>Source Files\state</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\state\MenuStateAnimation.cpp">
+      <Filter>Source Files\state</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\state\State.cpp">
       <Filter>Source Files\state</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\display\FightStage.cpp">
-      <Filter>Source Files\display</Filter>
+    <ClCompile Include="..\src\resource\GameResource.cpp">
+      <Filter>Source Files\resource</Filter>
     </ClCompile>
     <ClCompile Include="..\src\display\AircraftFighter.cpp">
       <Filter>Source Files\display</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\display\Rocket.cpp">
+    <ClCompile Include="..\src\display\FightStage.cpp">
       <Filter>Source Files\display</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\display\Unit.cpp">
+    <ClCompile Include="..\src\display\InputField.cpp">
       <Filter>Source Files\display</Filter>
     </ClCompile>
     <ClCompile Include="..\src\display\Obstacle.cpp">
       <Filter>Source Files\display</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\display\Pause.cpp">
+      <Filter>Source Files\display</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\display\Pickup.cpp">
       <Filter>Source Files\display</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\display\Rocket.cpp">
+      <Filter>Source Files\display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\display\SimpleButton.cpp">
+      <Filter>Source Files\display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\display\Unit.cpp">
+      <Filter>Source Files\display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Config.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\Game.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\state\FightState.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\state\MenuState.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\state\MenuStateAnimation.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\state\State.h">
+      <Filter>Header Files\state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\resource\GameResource.h">
+      <Filter>Header Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\AircraftFighter.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\FightStage.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\InputField.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\Obstacle.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\Pause.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\Pickup.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\Rocket.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\SimpleButton.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\display\Unit.h">
+      <Filter>Header Files\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Config.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Game.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

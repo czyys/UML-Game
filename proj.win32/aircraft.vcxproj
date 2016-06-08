@@ -111,35 +111,41 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\aircraft.cpp" />
-    <ClCompile Include="..\src\Game.cpp" />
-    <ClCompile Include="..\src\GameButton.cpp" />
-    <ClCompile Include="..\src\GameMenu.cpp" />
-    <ClCompile Include="..\src\GameScene.cpp" />
+    <ClCompile Include="..\src\core\Config.cpp" />
+    <ClCompile Include="..\src\core\Game.cpp" />
+    <ClCompile Include="..\src\display\AircraftFighter.cpp" />
+    <ClCompile Include="..\src\display\FightStage.cpp" />
+    <ClCompile Include="..\src\display\InputField.cpp" />
+    <ClCompile Include="..\src\display\Obstacle.cpp" />
+    <ClCompile Include="..\src\display\Pause.cpp" />
+    <ClCompile Include="..\src\display\Pickup.cpp" />
+    <ClCompile Include="..\src\display\Rocket.cpp" />
+    <ClCompile Include="..\src\display\SimpleButton.cpp" />
+    <ClCompile Include="..\src\display\Unit.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\MainMenuScene.cpp" />
-    <ClCompile Include="..\src\Obstacle.cpp" />
-    <ClCompile Include="..\src\Pickup.cpp" />
-    <ClCompile Include="..\src\Player.cpp" />
-    <ClCompile Include="..\src\resources.cpp" />
-    <ClCompile Include="..\src\Rocket.cpp" />
-    <ClCompile Include="..\src\Scene.cpp" />
-    <ClCompile Include="..\src\Unit.cpp" />
+    <ClCompile Include="..\src\resource\GameResource.cpp" />
+    <ClCompile Include="..\src\state\FightState.cpp" />
+    <ClCompile Include="..\src\state\MenuState.cpp" />
+    <ClCompile Include="..\src\state\MenuStateAnimation.cpp" />
+    <ClCompile Include="..\src\state\State.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\aircraft.h" />
-    <ClInclude Include="..\src\Game.h" />
-    <ClInclude Include="..\src\GameButton.h" />
-    <ClInclude Include="..\src\GameMenu.h" />
-    <ClInclude Include="..\src\GameScene.h" />
-    <ClInclude Include="..\src\MainMenuScene.h" />
-    <ClInclude Include="..\src\Obstacle.h" />
-    <ClInclude Include="..\src\Pickup.h" />
-    <ClInclude Include="..\src\Player.h" />
-    <ClInclude Include="..\src\resources.h" />
-    <ClInclude Include="..\src\Rocket.h" />
-    <ClInclude Include="..\src\Scene.h" />
-    <ClInclude Include="..\src\Unit.h" />
+    <ClInclude Include="..\src\core\Config.h" />
+    <ClInclude Include="..\src\core\Game.h" />
+    <ClInclude Include="..\src\display\AircraftFighter.h" />
+    <ClInclude Include="..\src\display\FightStage.h" />
+    <ClInclude Include="..\src\display\InputField.h" />
+    <ClInclude Include="..\src\display\Obstacle.h" />
+    <ClInclude Include="..\src\display\Pause.h" />
+    <ClInclude Include="..\src\display\Pickup.h" />
+    <ClInclude Include="..\src\display\Rocket.h" />
+    <ClInclude Include="..\src\display\SimpleButton.h" />
+    <ClInclude Include="..\src\display\Unit.h" />
+    <ClInclude Include="..\src\resource\GameResource.h" />
+    <ClInclude Include="..\src\state\FightState.h" />
+    <ClInclude Include="..\src\state\MenuState.h" />
+    <ClInclude Include="..\src\state\MenuStateAnimation.h" />
+    <ClInclude Include="..\src\state\State.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
