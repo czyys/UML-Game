@@ -3,7 +3,6 @@
 #include "../resource/GameResource.h"
 #include "Pickup.h"
 #include "../state/MenuState.h"
-#include "Pause.h"
 
 
 FightStage::FightStage() {
@@ -11,7 +10,6 @@ FightStage::FightStage() {
 }
 
 FightStage::~FightStage() {
-	//getStage()->removeEventListener(KeyEvent::KEY_DOWN);
 }
 
 void FightStage::init() {
@@ -73,9 +71,7 @@ void FightStage::init() {
 	playerNameGreen->setX(this->getWidth() - 170);
 	playerNameGreen->setY(35);
 
-	// create pause screen
-	pause = new Pause();
-	pause->init(Point(0, 0), 0, this);
+	log::messageln("units length: %d", _units.size());
 }
 
 
@@ -140,49 +136,17 @@ void FightStage::_initBgClouds() {
 
 void FightStage::doUpdate(const UpdateState& us) {
 	// update display objects
-	const Uint8* keyDown = SDL_GetKeyboardState(0);
 
-	if (keyDown[_pauseKey])
-		if (_lastPause + 150 < us.time) {
-			_lastPause = us.time;
-			_isPaused = !_isPaused;
+	for (std::list<spUnit>::iterator i = _units.begin(); i != _units.end(); ) {
+		spUnit child = *i;
+		child->update(us);
+
+		if (child->isDead()) {
+			//it is dead. Time to remove it from list
+			i = _units.erase(i);
 		}
-
-	if (_isPaused == false) {
-		pause->getView()->setVisible(false);
-		for (std::list<spUnit>::iterator i = _units.begin(); i != _units.end(); ) {
-			spUnit child = *i;
-			child->update(us);
-
-			if (child->isDead()) {
-				//it is dead. Time to remove it from list
-				i = _units.erase(i);
-			}
-			else {
-				++i;
-			}
+		else {
+			++i;
 		}
 	}
-	else {
-		pause->getView()->setVisible(true);
-	}
-}
-
-void FightStage::onEvent(Event* ev) {
-	KeyEvent* ke = safeCast<KeyEvent*>(ev);
-	
-	if (ke->type == KeyEvent::KEY_DOWN) {
-		switch (ke->data->keysym.scancode) {
-		case SDL_SCANCODE_ESCAPE:
-			log::messageln("escape down");
-			break;
-		default:
-			log::messageln("other key pressed");
-			break;
-		}
-	}
-}
-
-void FightStage::_showMenu() {
-
 }

@@ -2,8 +2,8 @@
 #include "Config.h"
 #include "oxygine-framework.h"
 #include "../resource/GameResource.h"
-#include "../state/FightState.h"
 #include "../state/MenuState.h"
+#include "../state/FightState.h"
 
 using namespace oxygine;
 
@@ -22,10 +22,10 @@ void Game::init() {
 	//Loading config 
 	Config::getInstance().loadConfig("../data/config.json");
 	log::messageln("%s", Config::getInstance().toString().c_str());
-
-	// create gaming state
-	FightState::instance = new FightState();
 	
+	// create new gaming state
+	FightState::instance = new FightState();
+
 	// create menu state 
 	MenuState::instance = new MenuState();
 	

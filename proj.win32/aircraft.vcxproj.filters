@@ -119,9 +119,12 @@
     <ClInclude Include="..\src\display\Obstacle.h">
       <Filter>Header Files\display</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\src\display\Pause.h">
       <Filter>Header Files\display</Filter>
     </ClInclude>
+=======
+>>>>>>> refs/heads/pause-redone
     <ClInclude Include="..\src\display\Pickup.h">
       <Filter>Header Files\display</Filter>
     </ClInclude>

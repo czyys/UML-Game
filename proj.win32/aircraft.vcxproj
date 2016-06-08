@@ -117,7 +117,10 @@
     <ClCompile Include="..\src\display\FightStage.cpp" />
     <ClCompile Include="..\src\display\InputField.cpp" />
     <ClCompile Include="..\src\display\Obstacle.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="..\src\display\Pause.cpp" />
+=======
+>>>>>>> refs/heads/pause-redone
     <ClCompile Include="..\src\display\Pickup.cpp" />
     <ClCompile Include="..\src\display\Rocket.cpp" />
     <ClCompile Include="..\src\display\SimpleButton.cpp" />
@@ -136,7 +139,10 @@
     <ClInclude Include="..\src\display\FightStage.h" />
     <ClInclude Include="..\src\display\InputField.h" />
     <ClInclude Include="..\src\display\Obstacle.h" />
+<<<<<<< HEAD
     <ClInclude Include="..\src\display\Pause.h" />
+=======
+>>>>>>> refs/heads/pause-redone
     <ClInclude Include="..\src\display\Pickup.h" />
     <ClInclude Include="..\src\display\Rocket.h" />
     <ClInclude Include="..\src\display\SimpleButton.h" />
