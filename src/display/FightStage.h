@@ -2,6 +2,7 @@
 #include "AircraftFighter.h"
 #include <list>
 #include "Unit.h"
+#include "../state/State.h"
 
 using namespace oxygine;
 
@@ -27,12 +28,15 @@ protected:
 
 	std::list<spUnit> _units;
 
+	State* _parentState;
+
 	void doUpdate(const UpdateState& us);
 	void _initGui();
 	void _initBgClouds();
 
 public:
 	FightStage();
+	FightStage(State* parentState);
 	~FightStage();
 
 	void init();

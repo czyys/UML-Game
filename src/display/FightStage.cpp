@@ -4,10 +4,13 @@
 #include "Pickup.h"
 #include "../state/MenuState.h"
 
-
 FightStage::FightStage() {
 
 }
+
+FightStage::FightStage(State* parentState){
+	_parentState = parentState;
+};
 
 FightStage::~FightStage() {
 }
@@ -68,12 +71,11 @@ void FightStage::init() {
 	playerNameGreen->setY(35);
 
 	//clouds after aircrafts
-	spPickup pickup_pup2 = new Pickup("pup", 2, -1, 76, false);
-//	pickup_pup2->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	pickup_pup2->init(Vector2(45+ getWidth()/2,150), 0, this);
-	spPickup pickup_pup3 = new Pickup("pup", 3, -1, 76, false);
-	//pickup_pup3->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	pickup_pup3->init(Vector2( getWidth() / 2, 120 +getHeight() / 2), 0, this);
+	spPickup slowCloud = new Pickup("pup", 2, -1, 76, false);
+	slowCloud->init(Vector2(45+ getWidth()/2,150), 0, this);
+	
+	spPickup fastCloud = new Pickup("pup", 3, -1, 76, false);
+	fastCloud->init(Vector2( getWidth() / 2, 120 +getHeight() / 2), 0, this);
 	
 
 	log::messageln("units length: %d", _units.size());
@@ -148,6 +150,10 @@ void FightStage::doUpdate(const UpdateState& us) {
 
 		if (child->isDead()) {
 			//it is dead. Time to remove it from list
+			if (child->getName() == "Green AF" || child->getName() == "Red AF") {
+				_parentState->changeState(MenuState::instance);
+			}
+
 			i = _units.erase(i);
 		}
 		else {

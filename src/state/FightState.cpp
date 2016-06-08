@@ -86,7 +86,7 @@ void FightState::onKeyEvent(Event* event) {
 }
 
 void FightState::createGame() {
-	_fightContainer = new FightStage();
+	_fightContainer = new FightStage(this);
 	_fightContainer->setClock(new Clock());
 	_view->prependChild(_fightContainer);
 }
