@@ -15,9 +15,10 @@ protected:
 	double _diameter; // from how far
 	int _quantity;
 	Vector2 _pos; //where
+	bool _rotate;
 
 public:
-	Pickup(std::string type,  int id, int quantity, double diameter);
+	Pickup(std::string type,  int id, int quantity, double diameter, bool rotate);
 	~Pickup();
 };
 

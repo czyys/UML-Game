@@ -1,7 +1,7 @@
 #include "Rocket.h"
 #include "../resource/GameResource.h"
 #include "FightStage.h"
-//#include "Obstacle.h"
+#include "Obstacle.h"
 #include "AircraftFighter.h"
 
 Rocket::Rocket(const Vector2& dir, std::string senderName): _dir(dir),_senderName(senderName){
@@ -26,14 +26,15 @@ void Rocket::_update(const UpdateState& us){
 	_view->setPosition(pos);
 
 	//find intersection with Enemies and explode them
-	/*for (Game::units::iterator i = _game->_units.begin(); i != _game->_units.end(); ++i)
-	{
+	
+
+	for (std::list<spUnit>::iterator i = _game->_units.begin(); i != _game->_units.end(); ++i) {
 		spUnit unit = *i;
 		//list of units has everything, but we need only Enemies
-		spPlayer player = dynamic_cast<Player*>(unit.get());
-		spObstacle enemy = dynamic_cast<Obstacle*>(unit.get());
-
-		if (enemy)
+		spAircraftFighter player = dynamic_cast<AircraftFighter*>(unit.get());
+		spObstacle obstacle = dynamic_cast<Obstacle*>(unit.get());
+		/* cyrrently no obstacles*/
+		if (obstacle)
 		{
 
 
@@ -41,7 +42,7 @@ void Rocket::_update(const UpdateState& us){
 			if (d.length() < 20)
 			{
 				//if rocket is too close to Enemy then try to explode it and explode rocket
-				enemy->hit(1);
+				obstacle->hit(1);
 				explode();
 				return;
 			}
@@ -53,7 +54,7 @@ void Rocket::_update(const UpdateState& us){
 			Vector2 d = unit->getPosition() - pos;
 			if (d.length() < 10)
 			{
-				if (player->getPlayerName() != _senderName)
+				if (player->getAircraftName() != _senderName)
 				{
 					player->hit(1);
 					explode();
@@ -61,10 +62,10 @@ void Rocket::_update(const UpdateState& us){
 				}
 			}
 		}
-		else
-			continue;
-	}*/
-
+		else continue;
+		
+	}
+	
     //if rocked out of bounds then explode it
     RectF bounds(0, 0, getStage()->getWidth(), getStage()->getHeight());
     if (!bounds.pointIn(pos)){
@@ -73,7 +74,7 @@ void Rocket::_update(const UpdateState& us){
 }
 
 void Rocket::explode(){
-    //we are dead
+    //Rocket  commitet suicide
     //set this flag to true and it this rocket would be removed from units list in Game::doUpdate
     _dead = true;
 
