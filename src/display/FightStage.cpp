@@ -10,7 +10,6 @@ FightStage::FightStage() {
 }
 
 FightStage::~FightStage() {
-	//getStage()->removeEventListener(KeyEvent::KEY_DOWN);
 }
 
 void FightStage::init() {
@@ -71,6 +70,8 @@ void FightStage::init() {
 	playerNameGreen->attachTo(this);
 	playerNameGreen->setX(this->getWidth() - 170);
 	playerNameGreen->setY(35);
+
+	log::messageln("units length: %d", _units.size());
 }
 
 
@@ -148,23 +149,4 @@ void FightStage::doUpdate(const UpdateState& us) {
 			++i;
 		}
 	}
-}
-
-void FightStage::onEvent(Event* ev) {
-	KeyEvent* ke = safeCast<KeyEvent*>(ev);
-	
-	if (ke->type == KeyEvent::KEY_DOWN) {
-		switch (ke->data->keysym.scancode) {
-		case SDL_SCANCODE_ESCAPE:
-			log::messageln("escape down");
-			break;
-		default:
-			log::messageln("other key pressed");
-			break;
-		}
-	}
-}
-
-void FightStage::_showMenu() {
-
 }

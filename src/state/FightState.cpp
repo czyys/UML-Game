@@ -5,29 +5,27 @@
 spFightState FightState::instance;
 
 FightState::FightState() {
-	_fightContainer = new FightStage();
-	_fightContainer->attachTo(this->_view);
-	_fightContainer->setClock(_clock = new Clock());
+	createGame();
 
 	_pauseMenu = initActor(new Sprite,
 		arg_resAnim = GameResource::ui.getResAnim("pause"),
 		arg_anchor = Vector2(0.5f, 0.5f),
+		arg_name = "Pause Menu",
+		arg_visible = false,
 		arg_attachTo = _view);
 	_pauseMenu->setX(_view->getWidth() / 2);
 	_pauseMenu->setY(_view->getHeight() / 2);
 
 	this->_initPauseMenu();
+}
 
-	_pauseMenu->setName("Pause Menu");
-	_pauseMenu->setVisible(false);
+void FightState::_show() {
+	// load objects
+	_fightContainer->init();
 
 	// add events to menu
 	_pauseMenu->addEventListener(TouchEvent::CLICK, CLOSURE(this, &FightState::onEvent));
 	getStage()->addEventListener(KeyEvent::KEY_DOWN, CLOSURE(this, &FightState::onKeyEvent));
-}
-
-void FightState::_show() {
-	_fightContainer->init();
 }
 
 void FightState:: _initPauseMenu() {
@@ -49,7 +47,6 @@ void FightState:: _initPauseMenu() {
 
 		buttonY += 50;
 	}
-
 }
 
 void FightState::onEvent(Event* event) {
@@ -57,49 +54,53 @@ void FightState::onEvent(Event* event) {
 
 	// switch to menu
 	if (target == "exit") {
-
+		closeGame();
 		changeState(MenuState::instance);
-		getStage()->removeEventListener(KeyEvent::KEY_DOWN, CLOSURE(this, &FightState::onKeyEvent));
-
-		_pauseMenuTween = _pauseMenu->addTween(Actor::TweenY(_pauseMenu->getY() - 20), 400);
-		_pauseMenuTween->setDoneCallback(CLOSURE(this, &FightState::onTweenDone));
 	} 
 	else if (target == "resume") {
-
 		_isPaused = !_isPaused;
 		_pauseMenu->setVisible(false);
-		_clock->resume();
+		_fightContainer->getClock()->resume();
 	}
 }
 
 void FightState::onKeyEvent(Event* event) {
-
 	KeyEvent* ke = safeCast<KeyEvent*>(event);
 
 	if (ke->type = KeyEvent::KEY_DOWN) {
 		if (SDL_SCANCODE_P == ke->data->keysym.scancode && _isPaused == true) {
 			_isPaused = !_isPaused;
 			_pauseMenu->setVisible(false);
-			_clock->resume();
+			_fightContainer->getClock()->resume();
 		}
 		else if (SDL_SCANCODE_P == ke->data->keysym.scancode && _isPaused == false) {
+			_fightContainer->getClock()->pause();
 			_isPaused = !_isPaused;
 			_pauseMenu->setVisible(true);
-			_clock->pause();
 		}
 		else if (SDL_SCANCODE_M == ke->data->keysym.scancode && _isPaused == true) {
+			closeGame();
 			changeState(MenuState::instance);
-			getStage()->removeEventListener(KeyEvent::KEY_DOWN, CLOSURE(this, &FightState::onKeyEvent));
 		}
 	}
 }
 
-void FightState::onTweenDone(Event* event) {
-	float posY = 0;
-	spSprite state;
+void FightState::createGame() {
+	_fightContainer = new FightStage();
+	_fightContainer->setClock(new Clock());
+	_view->prependChild(_fightContainer);
+}
 
-	// animation
-	posY = state->getY() + 20;
-	state->addTween(Actor::TweenAlpha(255), 200);
-	state->addTween(Actor::TweenY(posY), 400);
+void FightState::closeGame() {
+	//reset game
+	_fightContainer->detach();
+	_pauseMenu->setVisible(false);
+	_isPaused = false;
+
+	// prepare new game
+	createGame();
+
+	//remove events
+	getStage()->removeEventListener(KeyEvent::KEY_DOWN, CLOSURE(this, &FightState::onKeyEvent));
+	_pauseMenu->addEventListener(TouchEvent::CLICK, CLOSURE(this, &FightState::onEvent));
 }

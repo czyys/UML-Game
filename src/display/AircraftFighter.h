@@ -9,7 +9,6 @@ DECLARE_SMART(AircraftFighter, spAircraftFighter);
 class AircraftFighter : public Unit{
 protected:
 	const char*      _color;
-	const char*      _name;
 	float            _speed;
 	float            _speedMultiplier =1.0f;
 	float            _speedPickUpMultiplier[2] = { 0.0f, 0.0f };

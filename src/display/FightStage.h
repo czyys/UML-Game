@@ -28,7 +28,6 @@ protected:
 	std::list<spUnit> _units;
 
 	void doUpdate(const UpdateState& us);
-	void _showMenu();
 	void _initGui();
 	void _initBgClouds();
 
@@ -37,5 +36,4 @@ public:
 	~FightStage();
 
 	void init();
-	void onEvent(Event* ev);
 };

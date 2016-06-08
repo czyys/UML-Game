@@ -5,12 +5,12 @@
 
 AircraftFighter::AircraftFighter() : _lastBulletSpawn(0), _isFrozen(false){
 	this->_color = "red";
-	this->_name  = "Red Aircraft";
+	this->setName("Aircraft Red");
 }
 
 AircraftFighter::AircraftFighter(const char* name, const char* color) : _lastBulletSpawn(0), _isFrozen(false){
 	this->_color = color;
-	this->_name  = name;
+	this->setName(name);
 }
 
 void AircraftFighter::_init() {
@@ -89,7 +89,7 @@ void AircraftFighter::_update(const UpdateState& us) {
 			dir.normalize();
 
 			//create rocket
-			spRocket rocket = new Rocket(dir, this->_name);
+			spRocket rocket = new Rocket(dir, this->getName());
 			rocket->init(_view->getPosition(), 0, _game);
 		}
 	}

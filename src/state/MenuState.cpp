@@ -35,6 +35,7 @@ MenuState::MenuState(){
 		arg_attachTo = _view);
 	_mainMenu->setX(_view->getWidth() / 2);
 	_mainMenu->setY((_view->getHeight() / 2) + 80);
+	_mainMenu->setTouchEnabled(false);
 
 	// create authors block
 	_menuAuthors = initActor(new Sprite,
@@ -44,6 +45,7 @@ MenuState::MenuState(){
 		arg_alpha = 0);
 	_menuAuthors->setX(_view->getWidth() / 2);
 	_menuAuthors->setY((_view->getHeight() / 2) + 60);
+	_menuAuthors->setTouchEnabled(false);
 
 	//create settings block
 	_playerSettings = initActor(new Sprite,
@@ -368,9 +370,6 @@ void MenuState::onEvent(Event* ev) {
 	else if (target == "play") {
 		log::messageln("mode changed");
 
-		// create new gaming state
-		FightState::instance = new FightState();
-		
 		//clicked to play button change scene
 		changeState(FightState::instance);
 

@@ -3,6 +3,7 @@
 #include "oxygine-framework.h"
 #include "../resource/GameResource.h"
 #include "../state/MenuState.h"
+#include "../state/FightState.h"
 
 using namespace oxygine;
 
@@ -22,6 +23,9 @@ void Game::init() {
 	Config::getInstance().loadConfig("../data/config.json");
 	log::messageln("%s", Config::getInstance().toString().c_str());
 	
+	// create new gaming state
+	FightState::instance = new FightState();
+
 	// create menu state 
 	MenuState::instance = new MenuState();
 	
