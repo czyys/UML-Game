@@ -40,6 +40,10 @@ void AircraftFighter::_init() {
 	this->_setDefaultKeys();
 }
 
+int AircraftFighter::getHp() {
+	return _hp;
+}
+
 void AircraftFighter::_setDefaultKeys() {
 	this->_keyMap.resize(5);
 	

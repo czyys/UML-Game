@@ -34,4 +34,5 @@ public:
 	void pickupPup(int id);
 	void pickupWpn(int id);
 	void die();
+	int getHp();
 };

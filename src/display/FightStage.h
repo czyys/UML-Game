@@ -24,7 +24,8 @@ protected:
 	spSprite _guiPLayerGreen;
 	spSprite _bgClouds;
 	spTween _fightStageTween;
-
+	spTextField playerRedHealthLevel;
+	spTextField playerGreenHealthLevel;
 	std::list<spUnit> _units;
 
 	void doUpdate(const UpdateState& us);

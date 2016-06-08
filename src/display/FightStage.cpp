@@ -55,6 +55,20 @@ void FightStage::init() {
 	//GUI initialization
 	_initGui();
 
+	
+
+	//Display red player health level (max 10)
+	 playerRedHealthLevel = createText("0", "red");
+	playerRedHealthLevel->attachTo(this);
+	playerRedHealthLevel->setX(this->getWidth() - 80);
+	playerRedHealthLevel->setY(this->getHeight() - 25);
+
+	//Display green player health level (max 10)
+	 playerGreenHealthLevel = createText("0", "green");
+	playerGreenHealthLevel->attachTo(this);
+	playerGreenHealthLevel->setX(this->getWidth() - 80);
+	playerGreenHealthLevel->setY(35);
+
 	spTextField playerNameRed = createText("RED PLAYER", "red");
 	playerNameRed->setText(Config::getInstance().getPlayerName(0));
 	playerNameRed->attachTo(this);
@@ -141,6 +155,15 @@ void FightStage::_initBgClouds() {
 
 void FightStage::doUpdate(const UpdateState& us) {
 	// update display objects
+
+	if (_af1) {
+		std::string redPlayerHpString = std::to_string(_af1->getHp());
+		playerRedHealthLevel->setText(redPlayerHpString);
+	}
+	if (_af2) {
+		std::string greenPlayerHpString = std::to_string(_af2->getHp());
+		playerGreenHealthLevel->setText(greenPlayerHpString);
+	}
 
 	for (std::list<spUnit>::iterator i = _units.begin(); i != _units.end(); ) {
 		spUnit child = *i;
