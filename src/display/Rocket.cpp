@@ -54,7 +54,7 @@ void Rocket::_update(const UpdateState& us){
 			Vector2 d = unit->getPosition() - pos;
 			if (d.length() < 10)
 			{
-				if (player->getAircraftName() != _senderName)
+				if (player->getName() != _senderName)
 				{
 					player->hit(1);
 					explode();

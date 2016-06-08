@@ -118,10 +118,15 @@ void AircraftFighter::_update(const UpdateState& us) {
 		}
 	}
 
-		if (_hp <= 0)
-			this->die();
+	if (_hp <= 0) this->die();
 	//add debug info
-	DebugActor::instance->addDebugString("%s: hp=%d speed=%1.0f \n P(%05.1f,%05.1f) r=%05.1f \n", _name, _hp, ((this->_speed + _speedMultiplierPup)* this->_speedMultiplier), _view->getPosition().x, _view->getPosition().x, _view->getRotationDegrees());
+	DebugActor::instance->addDebugString("%s: hp=%d speed=%1.0f P(%05.1f,%05.1f) r=%05.1f \n\n", 
+		getName().c_str(), 
+		_hp, 
+		((this->_speed + _speedMultiplierPup)* this->_speedMultiplier), 
+		getPosition().x, 
+		getPosition().y, 
+		_view->getRotationDegrees());
 }
 
 /**
