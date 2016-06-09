@@ -4,12 +4,16 @@
 #include "../resource/GameResource.h"
 #include "../state/MenuState.h"
 #include "../state/FightState.h"
-
+#include "Pickup.h"
+#include "../state/ResultState.h"
 FightStage::FightStage() {}
 
-FightStage::FightStage(State* parentState) : _parentState(parentState) {}
+FightStage::FightStage(State* parentState){
+	_parentState = parentState;
+};
 
-FightStage::~FightStage() {}
+FightStage::~FightStage() {
+}
 
 void FightStage::init() {
 	this->setSize(getStage()->getSize());
@@ -81,8 +85,11 @@ void FightStage::init() {
 
 	//clouds after aircrafts
 	spPickup slowCloud = new Pickup("pup", 2, -1, 76, false);
-	slowCloud->init(Vector2(45 + getWidth() / 2, 150), 0, this);
-
+	slowCloud->init(Vector2(45+ getWidth()/2,150), 0, this);
+	
+	spPickup fastCloud = new Pickup("pup", 3, -1, 76, false);
+	fastCloud->init(Vector2( getWidth() / 2, 120 +getHeight() / 2), 0, this);
+	
 	spPickup fastCloud = new Pickup("pup", 3, -1, 76, false);
 	fastCloud->init(Vector2(getWidth() / 2, 120 + getHeight() / 2), 0, this);
 }
@@ -172,6 +179,10 @@ void FightStage::doUpdate(const UpdateState& us) {
 			}
 
 			//it is dead. Time to remove it from list
+			if (child->getName() == "Green AF" || child->getName() == "Red AF") {
+				_parentState->changeState(ResultState::instance);
+			}
+
 			i = _units.erase(i);
 		}
 		else {

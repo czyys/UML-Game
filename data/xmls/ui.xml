@@ -33,6 +33,9 @@
 		<image file="fight-gui.png" />
 		<image file="pause.png" trim="false"/>
 		<image file="fight-bg-clouds.png" />
+		<image file="result.jpg" />
+		<image file="result-menu.png" />
+		<image file="game_over.png" />
 	</atlas>
 	
 	<set path = "../images/pups" />

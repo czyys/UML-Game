@@ -4,6 +4,7 @@
 #include "../resource/GameResource.h"
 #include "../state/MenuState.h"
 #include "../state/FightState.h"
+#include "../state/ResultState.h"
 
 using namespace oxygine;
 
@@ -28,6 +29,9 @@ void Game::init() {
 
 	// create menu state 
 	MenuState::instance = new MenuState();
+
+	// create result state 
+	ResultState::instance = new ResultState();
 	
 	// open state (starts from menu)
 	MenuState::instance->show();

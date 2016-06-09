@@ -109,8 +109,7 @@ void AircraftFighter::_update(const UpdateState& us) {
 	}
 
 	// normalize angle
-	angle = angle - (2 * M_PI) * floor((angle + M_PI) / (2 * M_PI));
-
+	angle = angle - (2*M_PI) * floor((angle + M_PI) / (2*M_PI));
 	this->_view->setPosition(pos);
 	this->_view->setRotation(angle);
 	
@@ -125,6 +124,7 @@ void AircraftFighter::_update(const UpdateState& us) {
 	}
 
 	if (_hp <= 0) this->die();
+	
 	//add debug info
 	DebugActor::instance->addDebugString("%s: hp=%d speed=%1.0f P(%05.1f,%05.1f) r=%05.1f \n\n", 
 		getName().c_str(), 
@@ -221,7 +221,7 @@ void AircraftFighter::die(){
 	//auto detach sprite when tween is done
 	tween->setDetachActor(true);
 
-	//hide rocket and then detach it
+	//hide ship and then detach it
 	tween = _view->addTween(Actor::TweenAlpha(0), 500);
 	tween->setDetachActor(true);
 }
