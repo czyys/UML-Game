@@ -1,4 +1,4 @@
-# [PL]
+###### [PL]
 # Aplikacja czasu rzeczywistego - Aircraft Fighter
 
 ## Zasady gry:
@@ -29,14 +29,37 @@ Do poprawnego skompilowania projektu wymagane jest posiadanie frameworku **Oxygi
 
 Repozytorium **UML-Game** należy umieścić w folderze **oxygine-framework-with-sdl**
 
+##Diagramy
+- [Activity diagram](https://raw.githubusercontent.com/czyys/UML-Game/master/diagrams/Activity%20Diagram.png)
+- [Class diagram](https://raw.githubusercontent.com/czyys/UML-Game/master/diagrams/Class%20Diagram.png)
+- [Use case diagram](https://raw.githubusercontent.com/czyys/UML-Game/master/diagrams/Use%20case%20diagram.png)
+
+
 ##Informacja:
 Dane na branchu **audio** nie są w ostatecznej formie, dlatego nie są zmergowane z masterem.
 
+##Troubleshooting
+```
+aircraft.exe" is not responding
+```
+Ten błąd występuje w przypadku niewłaściwie utworzonych folderów. Żeby go rozwiązać należy zmienić nazwę folderu z danymi gry na **data** . Struktura folderów powinna wyglądać w następujący sposób:
+```
+Parent folder
+    |
+    |-data
+       |
+       |-data-ram
+       |-fonts
+       |-ui.xml.ox
+       |-xmls
+       |-aircraft.exe
+       |-...
+```
 
 
 
 
-# [EN]
+###### [EN]
 # Real-time application - Aircraft Fighter
 
 ## Game rules:
@@ -68,7 +91,30 @@ To compile this project you must download **Oxygine Framework**:
 
 Repository **UML-Game** must be placed in **oxygine-framework-with-sdl** folder.
 
+##Diagrams
+- [Activity diagram](https://raw.githubusercontent.com/czyys/UML-Game/master/diagrams/Activity%20Diagram.png)
+- [Class diagram](https://raw.githubusercontent.com/czyys/UML-Game/master/diagrams/Class%20Diagram.png)
+- [Use case diagram](https://raw.githubusercontent.com/czyys/UML-Game/master/diagrams/Use%20case%20diagram.png)
+
 ##Information:
 **audio** branch is not merged to **master** branch (temporary not working).
 
+##Troubleshooting
+```
+aircraft.exe" is not responding
+```
+This error appears when you have wrong game folders structure. To resolve this error rename you game folder to **data**.
+Structure must looks like this:
+```
+Parent folder
+    |
+    |-data
+       |
+       |-data-ram
+       |-fonts
+       |-ui.xml.ox
+       |-xmls
+       |-aircraft.exe
+       |-...
+```
 
