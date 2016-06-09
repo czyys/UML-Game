@@ -4,7 +4,6 @@
 #include "../resource/GameResource.h"
 #include "../state/MenuState.h"
 #include "../state/FightState.h"
-#include "Pickup.h"
 #include "../state/ResultState.h"
 FightStage::FightStage() {}
 
@@ -89,9 +88,6 @@ void FightStage::init() {
 	
 	spPickup fastCloud = new Pickup("pup", 3, -1, 76, false);
 	fastCloud->init(Vector2( getWidth() / 2, 120 +getHeight() / 2), 0, this);
-	
-	spPickup fastCloud = new Pickup("pup", 3, -1, 76, false);
-	fastCloud->init(Vector2(getWidth() / 2, 120 + getHeight() / 2), 0, this);
 }
 
 
@@ -175,14 +171,10 @@ void FightStage::doUpdate(const UpdateState& us) {
 			if (child->getName() == "Green AF" || child->getName() == "Red AF") {
 				spFightState fs = dynamic_cast<FightState*>(_parentState);
 				fs->closeGame();
-				fs->changeState(MenuState::instance);
+				fs->changeState(ResultState::instance);
 			}
 
 			//it is dead. Time to remove it from list
-			if (child->getName() == "Green AF" || child->getName() == "Red AF") {
-				_parentState->changeState(ResultState::instance);
-			}
-
 			i = _units.erase(i);
 		}
 		else {

@@ -2,14 +2,9 @@
 #include "Sprite.h"
 #include "initActor.h"
 #include "MenuState.h"
+#include "FightState.h"
 #include "../resource/GameResource.h"
 #include "../display/SimpleButton.h"
-#include "FightState.h"
-#include "../core/Config.h"
-#ifdef _WIN32
-#pragma comment(lib, "shell32.lib")
-#include <windows.h>
-#endif
 
 using namespace std;
 spResultState ResultState::instance;
@@ -26,7 +21,7 @@ ResultState::ResultState() {
 	_resultMode->setX(_view->getWidth() / 2);
 	_resultMode->setY((_view->getHeight() / 2) + 80);
 	_resultMode->setTouchEnabled(false);
-
+	
 	//create logo
 	spSprite gameover = initActor(new Sprite,
 		arg_resAnim = GameResource::ui.getResAnim("game_over"),
@@ -34,6 +29,7 @@ ResultState::ResultState() {
 		arg_attachTo = _view);
 	gameover->setX(_view->getWidth()/2);
 	gameover->setY(_view->getHeight()/4 - 20);
+
 
 	this->_initResult();
 	_resultMode->addEventListener(TouchEvent::CLICK, CLOSURE(this, &ResultState::onEvent));
