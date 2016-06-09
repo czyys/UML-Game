@@ -17,7 +17,7 @@
 - Vlad Udovychenko
 
 ## Link do aplikacji w wersji release:
-[Download](https://pages.github.com/)
+[Download](https://www.dropbox.com/s/q0z11bg47ki8qd3/AircraftFighter.zip?dl=1)
 
 ## Instrukcja uzyskania aplikacji w wersji "release":
 1. Skompilować cały projekt **(Build Solution)** wybierając opcję **Release** z **Solution Configurations**.
@@ -55,7 +55,7 @@ Dane na branchu **audio** nie są w ostatecznej formie, dlatego nie są zmergowa
 - Vlad Udovychenko
 
 ## Link to the application (release version):
-[Download](https://pages.github.com/)
+[Download](https://www.dropbox.com/s/q0z11bg47ki8qd3/AircraftFighter.zip?dl=1)
 
 ## Tutorial how to get an application in "release" version:
 1. Compile whole project **(Build Solution)** by choosing **Release** from **Solution Configurations**.
