@@ -2,7 +2,7 @@
 #include "../core/Config.h"
 #include "../resource/GameResource.h"
 #include "Pickup.h"
-#include "../state/MenuState.h"
+#include "../state/ResultState.h"
 
 FightStage::FightStage() {
 
@@ -151,7 +151,7 @@ void FightStage::doUpdate(const UpdateState& us) {
 		if (child->isDead()) {
 			//it is dead. Time to remove it from list
 			if (child->getName() == "Green AF" || child->getName() == "Red AF") {
-				_parentState->changeState(MenuState::instance);
+				_parentState->changeState(ResultState::instance);
 			}
 
 			i = _units.erase(i);
