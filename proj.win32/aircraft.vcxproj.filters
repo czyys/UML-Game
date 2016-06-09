@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -69,9 +69,6 @@
     <ClCompile Include="..\src\display\Obstacle.cpp">
       <Filter>Source Files\display</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\display\Pause.cpp">
-      <Filter>Source Files\display</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\display\Pickup.cpp">
       <Filter>Source Files\display</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="..\src\core\Game.cpp">
       <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\state\ResultState.cpp">
+      <Filter>Source Files\state</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +119,6 @@
     <ClInclude Include="..\src\display\Obstacle.h">
       <Filter>Header Files\display</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\display\Pause.h">
-      <Filter>Header Files\display</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\display\Pickup.h">
       <Filter>Header Files\display</Filter>
     </ClInclude>
@@ -139,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\src\core\Game.h">
       <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\state\ResultState.h">
+      <Filter>Header Files\state</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
