@@ -1,7 +1,11 @@
+#ifndef FIGHTSTAGE_H
+#define FIGHTSTAGE_H
+
 #include "oxygine-framework.h"
 #include "AircraftFighter.h"
-#include <list>
 #include "Unit.h"
+#include "../state/State.h"
+#include <list>
 
 using namespace oxygine;
 
@@ -19,14 +23,17 @@ protected:
 
 	spTextField createText(const std::string& txt, const std::string& color);
 
-	spSprite _bg;
-	spSprite _guiPLayerRed;
-	spSprite _guiPLayerGreen;
-	spSprite _bgClouds;
-	spTween _fightStageTween;
-	spTextField playerRedHealthLevel;
-	spTextField playerGreenHealthLevel;
+	spSprite    _bg;
+	spSprite    _guiPLayerRed;
+	spSprite    _guiPLayerGreen;
+	spSprite    _bgClouds;
+	spTween     _fightStageTween;
+	spTextField _playerRedHealthLevel;
+	spTextField _playerGreenHealthLevel;
+	
 	std::list<spUnit> _units;
+
+	State* _parentState;
 
 	void doUpdate(const UpdateState& us);
 	void _initGui();
@@ -34,7 +41,9 @@ protected:
 
 public:
 	FightStage();
+	FightStage(State* parentState);
 	~FightStage();
 
 	void init();
 };
+#endif // !FIGHTSTAGE_H

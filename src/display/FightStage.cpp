@@ -1,16 +1,15 @@
 #include "FightStage.h"
+#include "Pickup.h"
 #include "../core/Config.h"
 #include "../resource/GameResource.h"
-#include "Pickup.h"
 #include "../state/MenuState.h"
+#include "../state/FightState.h"
 
+FightStage::FightStage() {}
 
-FightStage::FightStage() {
+FightStage::FightStage(State* parentState) : _parentState(parentState) {}
 
-}
-
-FightStage::~FightStage() {
-}
+FightStage::~FightStage() {}
 
 void FightStage::init() {
 	this->setSize(getStage()->getSize());
@@ -21,6 +20,7 @@ void FightStage::init() {
 	this->_bg->attachTo(this);
 
 	_initBgClouds();
+
 	//type, id, quantity, diameter
 	spPickup pickup_pup0 = new Pickup("pup", 0, 5, 20, true);
 	pickup_pup0->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
@@ -36,7 +36,7 @@ void FightStage::init() {
 	const Font* systemFont = textDetails->getFont();
 
 	// create aircrafts, get keys from config
-	this->_af1 = new AircraftFighter();
+	this->_af1 = new AircraftFighter("Red AF", "red");
 	this->_af1->init(Vector2(0,0), 180, this);
 	this->_af1->setKeys(Config::getInstance().getPlayerKeys(0));
 	this->_af1->setPosition(Vector2(
@@ -55,19 +55,17 @@ void FightStage::init() {
 	//GUI initialization
 	_initGui();
 
-	
-
 	//Display red player health level (max 10)
-	 playerRedHealthLevel = createText("0", "red");
-	playerRedHealthLevel->attachTo(this);
-	playerRedHealthLevel->setX(this->getWidth() - 80);
-	playerRedHealthLevel->setY(this->getHeight() - 25);
+	_playerRedHealthLevel = createText("0", "red");
+	_playerRedHealthLevel->attachTo(this);
+	_playerRedHealthLevel->setX(this->getWidth() - 80);
+	_playerRedHealthLevel->setY(this->getHeight() - 25);
 
 	//Display green player health level (max 10)
-	 playerGreenHealthLevel = createText("0", "green");
-	playerGreenHealthLevel->attachTo(this);
-	playerGreenHealthLevel->setX(this->getWidth() - 80);
-	playerGreenHealthLevel->setY(35);
+	_playerGreenHealthLevel = createText("0", "green");
+	_playerGreenHealthLevel->attachTo(this);
+	_playerGreenHealthLevel->setX(this->getWidth() - 80);
+	_playerGreenHealthLevel->setY(35);
 
 	spTextField playerNameRed = createText("RED PLAYER", "red");
 	playerNameRed->setText(Config::getInstance().getPlayerName(0));
@@ -82,15 +80,11 @@ void FightStage::init() {
 	playerNameGreen->setY(35);
 
 	//clouds after aircrafts
-	spPickup pickup_pup2 = new Pickup("pup", 2, -1, 76, false);
-//	pickup_pup2->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	pickup_pup2->init(Vector2(45+ getWidth()/2,150), 0, this);
-	spPickup pickup_pup3 = new Pickup("pup", 3, -1, 76, false);
-	//pickup_pup3->init(Vector2(scalar::randFloat(0, getWidth()), scalar::randFloat(0, getHeight())), 0, this);
-	pickup_pup3->init(Vector2( getWidth() / 2, 120 +getHeight() / 2), 0, this);
-	
+	spPickup slowCloud = new Pickup("pup", 2, -1, 76, false);
+	slowCloud->init(Vector2(45 + getWidth() / 2, 150), 0, this);
 
-	log::messageln("units length: %d", _units.size());
+	spPickup fastCloud = new Pickup("pup", 3, -1, 76, false);
+	fastCloud->init(Vector2(getWidth() / 2, 120 + getHeight() / 2), 0, this);
 }
 
 
@@ -158,11 +152,11 @@ void FightStage::doUpdate(const UpdateState& us) {
 
 	if (_af1) {
 		std::string redPlayerHpString = std::to_string(_af1->getHp());
-		playerRedHealthLevel->setText(redPlayerHpString);
+		_playerRedHealthLevel->setText(redPlayerHpString);
 	}
 	if (_af2) {
 		std::string greenPlayerHpString = std::to_string(_af2->getHp());
-		playerGreenHealthLevel->setText(greenPlayerHpString);
+		_playerGreenHealthLevel->setText(greenPlayerHpString);
 	}
 
 	for (std::list<spUnit>::iterator i = _units.begin(); i != _units.end(); ) {
@@ -170,6 +164,13 @@ void FightStage::doUpdate(const UpdateState& us) {
 		child->update(us);
 
 		if (child->isDead()) {
+			
+			if (child->getName() == "Green AF" || child->getName() == "Red AF") {
+				spFightState fs = dynamic_cast<FightState*>(_parentState);
+				fs->closeGame();
+				fs->changeState(MenuState::instance);
+			}
+
 			//it is dead. Time to remove it from list
 			i = _units.erase(i);
 		}

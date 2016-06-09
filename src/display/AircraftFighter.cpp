@@ -100,7 +100,6 @@ void AircraftFighter::_update(const UpdateState& us) {
 		
 	}
 	
-	
 	if (!_bounds.pointIn(pos)) {
 		log::messageln("aircraft out of bounds");
 		angle += (float)((180 * M_PI) / 180);
@@ -108,6 +107,9 @@ void AircraftFighter::_update(const UpdateState& us) {
 		Vector2 poke((pos.x<_bounds.size.x)?2:-2, (pos.y<_bounds.size.y) ? 2 : -2);
 		pos += poke;
 	}
+
+	// normalize angle
+	angle = angle - (2 * M_PI) * floor((angle + M_PI) / (2 * M_PI));
 
 	this->_view->setPosition(pos);
 	this->_view->setRotation(angle);
@@ -209,10 +211,9 @@ void AircraftFighter::die(){
 	//create explode sprite
 	spSprite anim = new Sprite;
 	
-	this->_ship->setAnchor(Vector2(0.5f, 0.5f));
 	anim->attachTo(_view);
 	anim->setBlendMode(blend_add);
-	anim->setPosition(_view->getPosition());
+	anim->setPosition(_ship->getPosition());
 	anim->setAnchor(Vector2(0.5f, 0.5f));
 
 	//run tween with explosion animation

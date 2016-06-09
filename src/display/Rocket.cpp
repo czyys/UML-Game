@@ -52,7 +52,7 @@ void Rocket::_update(const UpdateState& us){
 		else if (player)
 		{
 			Vector2 d = unit->getPosition() - pos;
-			if (d.length() < 10)
+			if (d.length() < 20)
 			{
 				if (player->getName() != _senderName)
 				{
